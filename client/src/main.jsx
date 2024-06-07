@@ -12,7 +12,7 @@ import Authorize from "./components/Authorize/Authorize.jsx";
 const routerVariable = createBrowserRouter([
   {
     path: "/",
-    element: <Authorize />,
+    element: <Authorize/>,
   },
   {
     path: "/Home",

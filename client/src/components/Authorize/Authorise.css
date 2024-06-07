@@ -6,7 +6,7 @@ body {
 section {
     height: 100vh;
     /* Apply background color to the section */
-    background-color: aliceblue;
+    background-color: #def0ff;
 }
 .main-container {
     display: flex;
@@ -36,6 +36,7 @@ section {
     width: 80%; 
     height: auto;
 }
+
 
 @media (max-width: 768px) {
     .main-container {
