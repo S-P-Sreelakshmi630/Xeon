@@ -1,28 +1,24 @@
+import Dashboard from "./components/Dashboard";
+import Sidebar from "./components/Sidebar";
 
-import Dashboard from './components/Dashboard';
-import Sidebar from './components/Sidebar';
-import TotalBalanceBox from './components/TotalBalanceBox'
-import './globals.css';
+import "./globals.css";
 
 function App() {
-  const loggedIn = { firstName: 'John' }; 
+  const loggedIn = { firstName: "John" };
   return (
-   <section>
-        <Sidebar/>
+    <section className="flex h-screen w-full font-inter">
+        <Sidebar />
+        <div className="flex size-full flex-col">
         <Dashboard //HeaderBox
-        type="greeting"
-        title="Welcome"
-        user={loggedIn?.firstName || 'Guest'}
-        subtext="Access and manage your account and transactions efficiently."
+          type="greeting"
+          title="Welcome"
+          user={loggedIn?.firstName || "Guest"}
+          subtext="Access and manage your account and transactions efficiently."
         />
-
-        <TotalBalanceBox 
-            accounts={[]}
-            totalBanks={1}
-            totalCurrentBalance={1250.35}
-          />
-   </section>
-  )
+        </div>
+      
+    </section>
+  );
 }
 
 export default App;

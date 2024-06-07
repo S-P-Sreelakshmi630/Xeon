@@ -12,26 +12,26 @@ import Authorize from "./components/Authorize/Authorize.jsx";
 const routerVariable = createBrowserRouter([
   {
     path: "/",
-    element: <Authorize />,
+    element: <Authorize/>,
   },
   {
     path: "/Home",
     element: <App />,
   },
   {
-    path: "/Mybanks",
+    path: "/mybank",
     element: <Mybanks />,
   },
   {
-    path: "/Transaction",
+    path: "/transaction",
     element: <Transaction />,
   },
   {
-    path: "/Payments",
+    path: "/payment",
     element: <Payments />,
   },
   {
-    path: "/Connect",
+    path: "/connect",
     element: <Connect />,
   },
 ]);

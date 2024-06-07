@@ -1,7 +1,12 @@
+import Sidebar from './Sidebar';
+
 
 const Mybanks = () => {
   return (
-    <div>Mybanks</div>
+    <section>
+        <Sidebar />
+        Mybanks
+    </section>
   )
 }
 

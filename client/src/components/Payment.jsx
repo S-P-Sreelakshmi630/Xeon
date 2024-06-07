@@ -1,7 +1,11 @@
+import Sidebar from "./Sidebar"
 
 const Payment = () => {
   return (
-    <div>Payment</div>
+    <section>
+      <Sidebar/>
+      <h1>Hello Payment</h1>
+    </section>
   )
 }
 
