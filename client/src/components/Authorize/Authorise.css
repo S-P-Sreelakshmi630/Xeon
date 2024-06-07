@@ -1,4 +1,11 @@
 /* Authorise.css */
+
+
+.body {
+    margin: 0;
+    padding: 0;
+}
+
 .body {
     height: 100vh;
     /* Apply background color to the section */

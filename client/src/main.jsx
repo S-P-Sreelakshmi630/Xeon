@@ -19,19 +19,19 @@ const routerVariable = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/Mybanks",
+    path: "/mybank",
     element: <Mybanks />,
   },
   {
-    path: "/Transaction",
+    path: "/transaction",
     element: <Transaction />,
   },
   {
-    path: "/Payments",
+    path: "/payment",
     element: <Payments />,
   },
   {
-    path: "/Connect",
+    path: "/connect",
     element: <Connect />,
   },
 ]);
