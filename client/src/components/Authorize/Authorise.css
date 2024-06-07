@@ -34,7 +34,7 @@ section {
     border: 0;
     padding: 0;
     width: 80%; 
-    height: 800px;
+    height: auto;
 }
 
 @media (max-width: 768px) {
