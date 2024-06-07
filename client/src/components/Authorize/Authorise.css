@@ -1,11 +1,11 @@
 /* Authorise.css */
-<<<<<<< HEAD
-body {
+
+
+.body {
     margin: 0;
     padding: 0;
 }
-=======
->>>>>>> 6a5b542323e23285c692b5a97382bc65658ca704
+
 .body {
     height: 100vh;
     /* Apply background color to the section */
