@@ -1,7 +1,7 @@
 import React from "react";
 import "./Sign_IN.css";
 
-const Sign_IN = () => {
+const Sign_IN = ({ onSignUpClick }) => {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -69,12 +69,12 @@ const Sign_IN = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Don't have an account?{" "}
-          <a
-            href="/"
+          <button
+            onClick={onSignUpClick}
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Sign up now
-          </a>
+          </button>
         </p>
       </div>
     </div>
