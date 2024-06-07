@@ -18,7 +18,7 @@ const Authorize = () => {
   };
 
   return (
-    <section className="body">
+    <section className="body ">
       <LoadingBar ref={loadingBarRef} color="#64b6fa" height={5} />
       <div className="main-container">
         <div className="signIn-text">
@@ -26,7 +26,7 @@ const Authorize = () => {
         </div>
         <div className="image-container">
           <img src={image} className="image sidebar" alt="Auth" />
-        </div>
+        </div> 
       </div>
     </section>
   );
