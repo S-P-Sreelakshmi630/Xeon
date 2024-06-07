@@ -1,7 +1,9 @@
-
+import './Authorise.css';
 const Sign_UP = () => {
   return (
-    <div>Sign_UP</div>
+    <div className="text">
+      
+    </div>
   )
 }
 
