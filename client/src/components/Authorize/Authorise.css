@@ -1,9 +1,5 @@
 /* Authorise.css */
-body {
-    margin: 0;
-    padding: 0;
-}
-section {
+.body {
     height: 100vh;
     /* Apply background color to the section */
     background-color: #def0ff;
