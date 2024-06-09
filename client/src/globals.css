@@ -380,3 +380,9 @@
     @apply text-16 font-semibold text-black-2 max-xl:hidden;
   }
 }
+
+/* @media (min-width:1280px){
+  .xl\:flex{
+    display: flex;
+  }
+} */

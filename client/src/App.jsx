@@ -1,7 +1,9 @@
 import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
 
+import RecentTransactions from './components/RecentTransactions';
 import "./globals.css";
+
 
 function App() {
   const loggedIn = { firstName: "John" };
@@ -15,7 +17,9 @@ function App() {
           user={loggedIn?.firstName || "Guest"}
           subtext="Access and manage your account and transactions efficiently."
         />
+        
         </div>
+        
       
     </section>
   );
