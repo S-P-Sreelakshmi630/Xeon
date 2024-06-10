@@ -23,7 +23,6 @@ axios.defaults.withCredentials=true;
       e.preventDefault()
       //Backend server
       axios.post('http://localhost:3001/signup', {name, email, password})
-      
 
       .then(res => {
           navigate('/');
@@ -87,7 +86,7 @@ axios.defaults.withCredentials=true;
       </div>
       <div className="names-container">
         <p className="names" style={{ marginTop: "30px" }}>
-          State
+         
         </p>
         <p
           className="names last-name"
@@ -114,13 +113,13 @@ axios.defaults.withCredentials=true;
       </div>
       <div className="names-container">
         <p className="names" style={{ marginTop: "30px" }}>
-          Date of Birth
+          
         </p>
         <p
           className="names last-name"
           style={{ marginTop: "30px", paddingLeft: "330px" }}
         >
-          SSN
+          
         </p>
       </div>
       <div className="forms">
