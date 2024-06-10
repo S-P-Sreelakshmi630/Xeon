@@ -32,7 +32,7 @@ const Sidebar = () => {
                 isActive ? "bg-bank-gradient sidebar-link" : "sidebar-link"
               }
             >
-              <div className="relative size-6">
+              <div className="relative size-4">
                 <img
                   src={links.imgURL}
                   alt={links.label}

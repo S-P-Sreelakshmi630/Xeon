@@ -3,16 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import Connect from "./components/Connect.jsx";
 import Mybanks from "./components/Mybanks.jsx";
-import Transaction from "./components/Transaction.jsx";
 import Payments from "./components/Payment.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authorize from "./components/Authorize/Authorize.jsx";
+import TransactionHistory from "./components/TransactionHistory.jsx";
 
 const routerVariable = createBrowserRouter([
   {
     path: "/",
-    element: <Authorize/>,
+    element: <Authorize />,
   },
   {
     path: "/Home",
@@ -24,7 +24,7 @@ const routerVariable = createBrowserRouter([
   },
   {
     path: "/transaction",
-    element: <Transaction />,
+    element: <TransactionHistory />,
   },
   {
     path: "/payment",

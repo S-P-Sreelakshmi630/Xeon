@@ -3,6 +3,7 @@ import React from "react";
 import RightSidebar from "./RightSidebar";
 import TotalBalanceBox from "./TotalBalanceBox";
 import RecentTransactions from "./RecentTransactions";
+import HeaderBox from "./HeaderBox";
 
 //Static Data
 
@@ -33,16 +34,8 @@ const Dashboard = ({ type = "title", title, subtext, user }) => {
       {/* <header className="flex flex-col "> */}
 <header className="home-header">
         <header className="header-box">
-          <div className="mb-10 font-serif">
-            <h1 className="header-box-title">
-              {title}
-              {type === "greeting" && (
-                <span className="text-bankGradient">&nbsp;{user}</span>
-              )}
-            </h1>
-            <p className="header-box-subtext">{subtext}</p>
-          </div>
-          
+            <HeaderBox title={title} type={type} subtext={subtext} user={user}/>
+
           <TotalBalanceBox
             accounts={[]}
             totalBanks={1}
