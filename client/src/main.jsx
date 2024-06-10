@@ -8,11 +8,16 @@ import Payments from "./components/Payment.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authorize from "./components/Authorize/Authorize.jsx";
+import Sign_UP from "./components/Authorize/Sign_UP.jsx";
 
 const routerVariable = createBrowserRouter([
   {
     path: "/",
     element: <Authorize/>,
+  },
+  {
+    path: "/signup",
+    element: <Sign_UP/>,
   },
   {
     path: "/Home",
