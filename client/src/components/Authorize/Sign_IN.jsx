@@ -1,8 +1,49 @@
+import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import React from "react";
 import "./Sign_IN.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import axios from 'axios'
 
-const Sign_IN = ({ onSignUpClick }) => {
+const Sign_IN = () => {
+  const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    const [errorMessage, setErrorMessage] = useState(""); //state for error message
+
+    
+  const navigate = useNavigate();
+  const onSignUpClick=()=>{
+    navigate("/signup");
+  } 
+
+
+
+  axios.defaults.withCredentials = true;
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      axios.post('http://localhost:3001/login', {email, password})
+      
+      .then(res => {
+          console.log("login: " + res.data);
+          if(res.data.Status === "Success") {
+              
+                  navigate('/home')
+              
+          }
+          else{
+            setErrorMessage(" "+res.data)
+          }
+      }).catch(err => {
+        console.log(err)
+        setErrorMessage("An error occured: "+err);
+      })
+  }
+
+
+
+
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -17,7 +58,7 @@ const Sign_IN = ({ onSignUpClick }) => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form onSubmit={handleSubmit} className="space-y-6" action="#" method="POST">
           <div>
             <label
               htmlFor="email"
@@ -29,6 +70,7 @@ const Sign_IN = ({ onSignUpClick }) => {
               <input
                 id="email"
                 name="email"
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 autoComplete="email"
                 required
@@ -51,20 +93,26 @@ const Sign_IN = ({ onSignUpClick }) => {
                 id="password"
                 name="password"
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
                 required
                 className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+          {errorMessage && (
+          <div className="text-danger mt-4 ">
+                 {errorMessage}
+           </div>
+          )}
 
           <div>
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              <Link to="/Home" style={{color:"white"}}> Sign in </Link>
-
+              {/* <Link to="/Home" style={{color:"white"}}> Sign in </Link> */}
+            Sign in
             </button>
           </div>
         </form>
