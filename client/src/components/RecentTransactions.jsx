@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 // import { Tabs, TabsList, TabsTrigger, TabsContent } from 'shadcn/ui';
 import 'bootstrap/dist/css/bootstrap.min.css';

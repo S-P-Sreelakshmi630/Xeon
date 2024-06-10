@@ -1,10 +1,11 @@
 import Sidebar from "./Sidebar"
+import TransactionHistory from "./TransactionHistory"
 
 const Transaction = () => {
   return (
-    <section>
-      <Sidebar/>
-      <h1>Transactions</h1>
+    <section className="flex gap-2">
+        <Sidebar/>
+        <TransactionHistory/>
     </section>
   )
 }
