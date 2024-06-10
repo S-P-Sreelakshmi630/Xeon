@@ -3,11 +3,11 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import Connect from "./components/Connect.jsx";
 import Mybanks from "./components/Mybanks.jsx";
-import Payments from "./components/Payment.jsx";
+import Payment from "./components/Payment.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authorize from "./components/Authorize/Authorize.jsx";
-import TransactionHistory from "./components/TransactionHistory.jsx";
+import Transaction from "./components/Transaction.jsx";
 
 const routerVariable = createBrowserRouter([
   {
@@ -24,11 +24,11 @@ const routerVariable = createBrowserRouter([
   },
   {
     path: "/transaction",
-    element: <TransactionHistory />,
+    element: <Transaction />,
   },
   {
     path: "/payment",
-    element: <Payments />,
+    element: <Payment />,
   },
   {
     path: "/connect",
