@@ -1,0 +1,103 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  .payment{
+    width: 100%;
+  }
+  
+  
+
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+.btn-primary {
+  background-color: #4285f4;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #3367d6;
+}
+
+textarea{
+  resize : none;
+  
+}
+
+textarea::placeholder {
+ 
+  font-weight: 200;
+  font-family: 'Arial', sans-serif;
+}
+
+input::placeholder {
+  font-weight: 200;
+  font-family: 'Arial', sans-serif;
+}
+
+.form-label{
+
+  font-size: 125%;
+  font-weight: 300;
+  margin-right: 2vw;
+}
+
+.divider {
+  height: 2px;
+  background-color: #ebedee; /* Light grey color for the divider */
+  border-radius: 5px; /* Rounded edges */
+  margin: 20px 0; /* Space around the divider */
+}
+
+.divider1 {
+  height: 2px;
+  background-color: hsl(0, 5%, 96%); /* Light grey color for the divider */
+  border-radius: 5px; /* Rounded edges */
+  margin: 20px 0; /* Space around the divider */
+}
+
+.form-control{
+  width : 65%;
+}
+
+.mt-4{
+  font-family: 'Arial', sans-serif; /* Modern system font */
+    font-weight: bold; /* Bold text */
+  font-size: large;
+    color: black; /* Text color */
+   
+}
+
+.mb-4{
+  font-size: smaller;
+  font-weight: 200;
+
+}
+
+.btn1{
+  display: flex;
+  justify-content: start;
+}
+
+
+
+
