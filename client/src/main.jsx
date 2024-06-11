@@ -14,10 +14,7 @@ const routerVariable = createBrowserRouter([
     path: "/",
     element: <App />,
   },
-  {
-    path: "/signup",
-    element: <Sign_UP/>,
-  },
+ 
   {
     path: "/login",
     element: <Authorize />,
