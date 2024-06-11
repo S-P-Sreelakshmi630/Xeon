@@ -28,8 +28,8 @@ console.log("mongodb connected");
 
 //Registration
 app.post("/signup", (req, res) => {
-  const { name, email, password } = req.body;
-  UserModel.create({ name, email, password })
+  const { name, email, password, accessToken } = req.body;
+  UserModel.create({ name, email, password, accessToken })
     .then((user) => res.json("Success"))
     .catch((err) => res.json(err));
 });
@@ -51,11 +51,6 @@ app.post("/login", (req, res) => {
   });
 });
 
-const PORT = 3001;
-const server = http.createServer(app);
-server.listen(PORT, () => {
-  console.log("Server is Running " + PORT);
-});
 
 // plaid Configuration
 
@@ -118,4 +113,15 @@ app.post("/exchange_public_token", async function (req, res, next) {
     // handle error
     res.status(500).send("Failed to access token: " + error.message);
   }
+});
+
+
+
+// server port setup
+
+
+const PORT = 3001;
+const server = http.createServer(app);
+server.listen(PORT, () => {
+  console.log("Server is Running " + PORT);
 });
