@@ -1,16 +1,22 @@
-import PlaidToken from "./PlaidToken";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { usePlaidLink } from "react-plaid-link";
+import PlaidAccessToken from "./PlaidAccessToken";
 axios.defaults.baseURL = "http://localhost:3001";
 
  
   
 
-const PlaidConnectBank = () => {
+const PlaidConnectBank = ({sendtoDataParent}) => {
     const [linkToken, setLinkToken] = useState("");
     const [public_token, setPublic_token] = useState();
     
+    const handleChild = (accessToken) =>{
+      sendtoDataParent(accessToken)
+    }
+
+
     useEffect(() => {
       async function fetch() {
         const response = await axios.post("/create_link_token");
@@ -32,11 +38,9 @@ const PlaidConnectBank = () => {
     });
   
 
-    return public_token ? (
-        <PlaidToken public_token={public_token} />
-      ) : (
+    return public_token ? (<PlaidAccessToken public_token={public_token} sendtoParent={handleChild}/>) : (
         <button
-          className="btn btn-primary btn-lg submit-btn"
+          className="flex justify-center  btn btn-primary btn-lg submit-btn"
           onClick={() => open()}
           disabled={!ready}
         >

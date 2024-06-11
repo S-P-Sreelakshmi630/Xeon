@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import image from "../../icons/auth.jpg";
-import PlaidConnectBank from "../Plaid/PlaidConnectBank"
+import PlaidConnectBank from "../Plaid/PlaidConnectBank";
 const Sign_UP = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,58 +16,21 @@ const Sign_UP = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const[flag,setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
   const [accessToken, setAccessToken] = useState();
 
+  const handleAccessToken = (access) => {
+    setAccessToken(access);
+  };
 
-// plaid access token 
-axios.defaults.baseURL = "http://localhost:3001";
-
-useEffect(()=>{
-  async function fetch(){
-      let accessToken = await axios.post('/exchange_public_token',{public_token: public_token})
-      console.log("access token : ", accessToken.data);
-      setAccessToken(accessToken.data);
-  }
-  fetch();
-},[])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/// end of plaid access token
-
-
-
-
-
-
-
-
-
+  console.log(accessToken);
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/signup", { name,lastName, email, password ,accessToken})
+      .post("/signup", { name, email, password, accessToken })
       .then((res) => {
         navigate("/");
       })
@@ -81,10 +44,14 @@ useEffect(()=>{
     <section className="body">
       <div className="main-container">
         <div className="form-container">
+          <PlaidConnectBank sendtoDataParent={handleAccessToken} />
+
+         {/*  forms */}
           <form className="main signIn-text" onSubmit={handleSubmit}>
             <b>
               <h1 style={{ fontSize: "35px" }}>Sign Up</h1>
             </b>
+
             <p style={{ marginTop: "5px" }}>Please enter your details.</p>
             <div className="names-container">
               <p className="names" style={{ marginTop: "30px" }}>
@@ -99,7 +66,7 @@ useEffect(()=>{
             </div>
             <div className="forms">
               <input
-                style={{paddingRight:"50px"}}
+                style={{ paddingRight: "50px" }}
                 className="form-control form-control-lg"
                 type="text"
                 placeholder="ex: John"
@@ -150,7 +117,6 @@ useEffect(()=>{
                 type="text"
                 placeholder="ex: 500083"
                 aria-label=".form-control-lg example"
-                
                 onChange={(e) => setPostalCode(e.target.value)}
               />
             </div>
@@ -179,11 +145,12 @@ useEffect(()=>{
                 type="text"
                 placeholder="ex: 1234"
                 aria-label=".form-control-lg example"
-                
                 onChange={(e) => setSsn(e.target.value)}
               />
             </div>
-            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>Email ID</p>
+            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>
+              Email ID
+            </p>
             <div className="address-form">
               <input
                 className="form-control form-control-lg"
@@ -194,7 +161,9 @@ useEffect(()=>{
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>Password</p>
+            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>
+              Password
+            </p>
             <div className="address-form">
               <input
                 className="form-control form-control-lg"
@@ -205,13 +174,7 @@ useEffect(()=>{
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button onClick={()=> setFlag(true)}
-            className="btn btn-primary submit-btn">
-                  Verify Details
-            </button>
-            { flag && 
-              (<PlaidConnectBank />)
-            }
+
             <div className="submit text-center">
               <button
                 type="submit"
@@ -232,6 +195,9 @@ useEffect(()=>{
               </p>
             )}
           </form>
+
+
+          
         </div>
         <div className="image-container">
           <img src={image} className="image" alt="Auth" />
@@ -242,5 +208,3 @@ useEffect(()=>{
 };
 
 export default Sign_UP;
-
-
