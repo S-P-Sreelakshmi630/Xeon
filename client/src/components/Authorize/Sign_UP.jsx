@@ -16,6 +16,50 @@ const Sign_UP = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const[flag,setFlag] = useState(false);
+  const [accessToken, setAccessToken] = useState();
+
+
+// plaid access token 
+axios.defaults.baseURL = "http://localhost:3001";
+
+useEffect(()=>{
+  async function fetch(){
+      let accessToken = await axios.post('/exchange_public_token',{public_token: public_token})
+      console.log("access token : ", accessToken.data);
+      setAccessToken(accessToken.data);
+  }
+  fetch();
+},[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// end of plaid access token
+
+
+
+
+
+
+
+
 
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
@@ -23,7 +67,7 @@ const Sign_UP = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/signup", { name, lastName, address, state, postalCode, dob, ssn, email, password })
+      .post("/signup", { name,lastName, email, password ,accessToken})
       .then((res) => {
         navigate("/");
       })
@@ -161,7 +205,13 @@ const Sign_UP = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <PlaidConnectBank/>
+            <button onClick={()=> setFlag(true)}
+            className="btn btn-primary submit-btn">
+                  Verify Details
+            </button>
+            { flag && 
+              (<PlaidConnectBank />)
+            }
             <div className="submit text-center">
               <button
                 type="submit"

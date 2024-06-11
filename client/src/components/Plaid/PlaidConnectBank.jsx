@@ -36,7 +36,7 @@ const PlaidConnectBank = () => {
         <PlaidToken public_token={public_token} />
       ) : (
         <button
-          className="bg-blue-400 text-white"
+          className="btn btn-primary btn-lg submit-btn"
           onClick={() => open()}
           disabled={!ready}
         >
