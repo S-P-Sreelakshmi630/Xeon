@@ -1,48 +1,40 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import React from "react";
 import "./Sign_IN.css";
-import { Link,useNavigate } from "react-router-dom";
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Sign_IN = () => {
-  const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [errorMessage, setErrorMessage] = useState(""); //state for error message
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [errorMessage, setErrorMessage] = useState(""); //state for error message
 
-    
   const navigate = useNavigate();
-  const onSignUpClick=()=>{
+  const onSignUpClick = () => {
     navigate("/signup");
-  } 
-
-
+  };
 
   axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
-      e.preventDefault()
-      axios.post('http://localhost:3001/login', {email, password})
-      
-      .then(res => {
-          console.log("login: " + res.data);
-          if(res.data.Status === "Success") {
-              
-                  navigate('/home')
-              
-          }
-          else{
-            setErrorMessage(" "+res.data)
-          }
-      }).catch(err => {
-        console.log(err)
-        setErrorMessage("An error occured: "+err);
+    e.preventDefault();
+    axios
+      .post("http://localhost:3001/login", { email, password })
+
+      .then((res) => {
+        console.log("login: " + res.data);
+        if (res.data.Status === "Success") {
+          navigate("/home");
+        } else {
+          setErrorMessage(" " + res.data);
+        }
       })
-  }
-
-
-
-
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage("An error occured: " + err);
+      });
+  };
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -58,7 +50,12 @@ const Sign_IN = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleSubmit} className="space-y-6" action="#" method="POST">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          action="#"
+          method="POST"
+        >
           <div>
             <label
               htmlFor="email"
@@ -101,9 +98,7 @@ const Sign_IN = () => {
             </div>
           </div>
           {errorMessage && (
-          <div className="text-danger mt-4 ">
-                 {errorMessage}
-           </div>
+            <div className="text-danger mt-4 ">{errorMessage}</div>
           )}
 
           <div>
@@ -112,7 +107,7 @@ const Sign_IN = () => {
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               {/* <Link to="/Home" style={{color:"white"}}> Sign in </Link> */}
-            Sign in
+              Sign in
             </button>
           </div>
         </form>
