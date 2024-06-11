@@ -1,17 +1,17 @@
 import "./Authorise.css";
 import "./Sign_UP.css";
 import axios from 'axios'
-import {Link, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import { useState } from "react";
+
+
 
 
 //Deleted some fields which are of no use!
 
 const Sign_UP = () => {
-
-
-  const [name, setName] = useState()
   const [email, setEmail] = useState()
+  const [name, setName] = useState()
   const [password, setPassword] = useState()
   const [errorMessage, setErrorMessage] = useState(""); // Add state for error message
 
