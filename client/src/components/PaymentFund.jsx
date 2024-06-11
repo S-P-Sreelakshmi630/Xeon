@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./PaymentStyle.css";
 
 const PaymentFund = () => {
   const [sourceBank, setSourceBank] = useState("");
@@ -8,7 +9,7 @@ const PaymentFund = () => {
   const [amount, setAmount] = useState("");
 
   const handlePayment = () => {
-    // Handle payment logic here, e.g., send data to a backend API
+    // Handle payment logic here, send data to a backend API
     console.log("Payment data:", {
       sourceBank,
       transferNote,
@@ -35,7 +36,7 @@ const PaymentFund = () => {
                   <h4 className="mt-1">Transfer Details</h4>
                   <p className="mb-4">Enter the details of the recipient</p>
                   <div className="divider1"></div>
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <label htmlFor="sourceBank" className="form-label">
                         Select Bank
@@ -51,7 +52,7 @@ const PaymentFund = () => {
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <label htmlFor="transferNote" className="form-label">
                         Payment Note (Optional)
@@ -68,7 +69,7 @@ const PaymentFund = () => {
                   </div>
                 </div>
               </div>
-              <div className="divider"></div>
+              <div className="divider "></div>
               <div className="row">
                 <div className="col-md-12">
                   <h4 className="mt-1">Bank Account Details</h4>
@@ -76,7 +77,7 @@ const PaymentFund = () => {
                     Enter the bank account details of the recipient
                   </p>
                   <div className="divider1"></div>
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <label htmlFor="recipientEmail" className="form-label">
                         Recipients Email Address
@@ -91,7 +92,7 @@ const PaymentFund = () => {
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <label
                         htmlFor="recipientAccountNumber"
@@ -111,7 +112,7 @@ const PaymentFund = () => {
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <label htmlFor="amount" className="form-label">
                         Amount
