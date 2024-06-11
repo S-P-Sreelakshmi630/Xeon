@@ -1,15 +1,10 @@
 // import "./Authorise.css";
 import "./Sign_UP.css";
-
-import axios from 'axios'
-import { useNavigate} from 'react-router-dom'
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import image from "../../icons/auth.jpg";
-
-
-
-//Deleted some fields which are of no use!
-
+import PlaidConnectBank from "../Plaid/PlaidConnectBank"
 const Sign_UP = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,8 +17,8 @@ const Sign_UP = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-const navigate = useNavigate()
-axios.defaults.withCredentials=true;
+  const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -166,6 +161,7 @@ axios.defaults.withCredentials=true;
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <PlaidConnectBank/>
             <div className="submit text-center">
               <button
                 type="submit"

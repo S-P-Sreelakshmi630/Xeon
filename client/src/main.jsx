@@ -12,12 +12,15 @@ import Sign_UP from "./components/Authorize/Sign_UP.jsx";
 const routerVariable = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
- 
-  {
-    path: "/login",
     element: <Authorize />,
+  },
+  {
+    path: "/signup",
+    element: <Sign_UP/>,
+  },
+  {
+    path: "/Home",
+    element: <App />,
   },
   {
     path: "/mybank",

@@ -1,4 +1,4 @@
-import PlaidToken from "./components/Plaid/PlaidToken";
+import PlaidToken from "./PlaidToken";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { usePlaidLink } from "react-plaid-link";
