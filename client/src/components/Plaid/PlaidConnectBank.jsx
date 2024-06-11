@@ -40,7 +40,8 @@ const PlaidConnectBank = ({sendtoDataParent}) => {
 
     return public_token ? (<PlaidAccessToken public_token={public_token} sendtoParent={handleChild}/>) : (
         <button
-          className="flex justify-center  btn btn-primary btn-lg submit-btn"
+          style={{marginRight:"25%", marginTop:"10px"}}
+          className="flex justify-center  btn btn-primary btn-md submit-btn"
           onClick={() => open()}
           disabled={!ready}
         >

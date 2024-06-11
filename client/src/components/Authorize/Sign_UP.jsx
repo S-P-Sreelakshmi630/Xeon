@@ -43,23 +43,23 @@ const Sign_UP = () => {
   return (
     <section className="body">
       <div className="main-container">
-        <div className="form-container">
-          <PlaidConnectBank sendtoDataParent={handleAccessToken} />
-
+        <div className="form-container">      
+            <PlaidConnectBank sendtoDataParent={handleAccessToken} />
          {/*  forms */}
+         <div className="divider"></div>
           <form className="main signIn-text" onSubmit={handleSubmit}>
             <b>
-              <h1 style={{ fontSize: "35px" }}>Sign Up</h1>
+              <h1 style={{ fontSize: "30px" }}>Sign Up</h1>
             </b>
 
-            <p style={{ marginTop: "5px" }}>Please enter your details.</p>
+            <p style={{ marginTop: "1px" }}>Please enter your details.</p>
             <div className="names-container">
               <p className="names" style={{ marginTop: "30px" }}>
-                First Name
+                First Name <span className="mandate">*</span>
               </p>
               <p
                 className="names last-name"
-                style={{ marginTop: "30px", paddingLeft: "330px" }}
+                style={{ marginTop: "30px", paddingLeft: "13vw" }}
               >
                 Second Name
               </p>
@@ -67,28 +67,28 @@ const Sign_UP = () => {
             <div className="forms">
               <input
                 style={{ paddingRight: "50px" }}
-                className="form-control form-control-lg"
+                className="form-control form-control-md"
                 type="text"
                 placeholder="ex: John"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 required
                 onChange={(e) => setName(e.target.value)}
               />
               <input
-                className="form-control form-control-lg last-name"
+                className="form-control form-control-md last-name"
                 type="text"
                 placeholder="ex: Doe"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
-            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>Address</p>
+            <p style={{ paddingTop: "10px", paddingBottom: "1px" }}>Address <span className="mandate">*</span></p>
             <div className="address-form">
               <input
-                className="form-control form-control-lg"
+                className="form-control form-control-md"
                 type="text"
                 placeholder="Enter your specific address"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 required
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -99,24 +99,24 @@ const Sign_UP = () => {
               </p>
               <p
                 className="names last-name"
-                style={{ marginTop: "30px", paddingLeft: "370px" }}
+                style={{ marginTop: "30px", paddingLeft: "15vw" }}
               >
                 Postal Code
               </p>
             </div>
             <div className="forms">
               <input
-                className="form-control form-control-lg"
+                className="form-control form-control-md"
                 type="text"
                 placeholder="ex: Telangana"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 onChange={(e) => setState(e.target.value)}
               />
               <input
-                className="form-control form-control-lg last-name"
+                className="form-control form-control-md last-name"
                 type="text"
                 placeholder="ex: 500083"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 onChange={(e) => setPostalCode(e.target.value)}
               />
             </div>
@@ -126,50 +126,50 @@ const Sign_UP = () => {
               </p>
               <p
                 className="names last-name"
-                style={{ marginTop: "30px", paddingLeft: "330px" }}
+                style={{ marginTop: "30px", paddingLeft: "12vw" }}
               >
-                SSN
+                Mobile Number
               </p>
             </div>
             <div className="forms">
               <input
-                className="form-control form-control-lg"
+                className="form-control form-control-md"
                 type="text"
                 placeholder="ex: dd-mm-yyyy"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 // required
                 onChange={(e) => setDob(e.target.value)}
               />
               <input
-                className="form-control form-control-lg last-name"
+                className="form-control form-control-md last-name"
                 type="text"
-                placeholder="ex: 1234"
-                aria-label=".form-control-lg example"
+                placeholder="ex: +91 "
+                aria-label=".form-control-md example"
                 onChange={(e) => setSsn(e.target.value)}
               />
             </div>
             <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>
-              Email ID
+              Email ID <span className="mandate">*</span>
             </p>
             <div className="address-form">
               <input
-                className="form-control form-control-lg"
+                className="form-control form-control-md"
                 type="text"
                 placeholder="Enter your email"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>
-              Password
+              Password <span className="mandate">*</span>
             </p>
             <div className="address-form">
               <input
-                className="form-control form-control-lg"
+                className="form-control form-control-md"
                 type="password"
                 placeholder="Password"
-                aria-label=".form-control-lg example"
+                aria-label=".form-control-md example"
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -178,7 +178,7 @@ const Sign_UP = () => {
             <div className="submit text-center">
               <button
                 type="submit"
-                className="btn btn-primary btn-lg submit-btn"
+                className="btn btn-primary btn-md submit-btn"
               >
                 Sign Up
               </button>
