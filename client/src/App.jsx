@@ -1,11 +1,12 @@
 import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
 
-
+import RecentTransactions from './components/RecentTransactions';
 import "./globals.css";
-function App(){
-  
-const loggedIn = {firstName: 'John', email : 'john@example.com'};
+
+
+function App() {
+  const loggedIn = { firstName: "John" };
   return (
     <section className="flex h-screen w-full font-inter gap-">
         <Sidebar />
@@ -18,7 +19,6 @@ const loggedIn = {firstName: 'John', email : 'john@example.com'};
         />
         
         </div>
-
         
       
     </section>
