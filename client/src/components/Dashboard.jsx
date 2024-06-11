@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import RightSidebar from "./RightSidebar";
+
 import TotalBalanceBox from "./TotalBalanceBox";
 import RecentTransactions from "./RecentTransactions";
 import HeaderBox from "./HeaderBox";
@@ -89,8 +89,6 @@ const Dashboard = ({ type, title, subtext, user }) => {
           page={staticPage}
         />
       </div>
-
-      <RightSidebar user={user} transactions={[]} banks={[]} />
     </section>
   );
 };

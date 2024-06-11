@@ -61,7 +61,7 @@ p {
 }
 
 .forms input {
-  width: 35%;
+  width: 5%;
   margin-bottom: 5px; /* Add margin bottom for all inputs */
   margin-right: 10px; /* Reduce margin right for smaller screens */
 }

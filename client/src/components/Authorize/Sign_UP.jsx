@@ -23,7 +23,7 @@ const Sign_UP = () => {
     setAccessToken(access);
   };
 
-  console.log(accessToken);
+  //console.log(accessToken);
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
@@ -43,137 +43,143 @@ const Sign_UP = () => {
   return (
     <section className="body">
       <div className="main-container">
-        <div className="form-container">      
-            <PlaidConnectBank sendtoDataParent={handleAccessToken} />
-         {/*  forms */}
-         <div className="divider"></div>
+        <div className="form-container">
+          <PlaidConnectBank sendtoDataParent={handleAccessToken} />
+          {/*  forms */}
+          <div className="divider"></div>
           <form className="main signIn-text" onSubmit={handleSubmit}>
             <b>
               <h1 style={{ fontSize: "30px" }}>Sign Up</h1>
             </b>
 
-            <p style={{ marginTop: "1px" }}>Please enter your details.</p>
-            <div className="names-container">
-              <p className="names" style={{ marginTop: "30px" }}>
-                First Name <span className="mandate">*</span>
-              </p>
-              <p
-                className="names last-name"
-                style={{ marginTop: "30px", paddingLeft: "13vw" }}
-              >
-                Second Name
-              </p>
+            <p className="font-bold mb-2">Please enter your details.</p>
+            <div className="flex flex-wrap">
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  First Name <span className="mandate">*</span>
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="ex: John"
+                  aria-label=".form-control-md example"
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  second Name <span className="mandate">*</span>
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="ex: John"
+                  aria-label=".form-control-md example"
+                  required
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  Address 
+                </label>
+                <input
+                  className="w-96 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="ex: John"
+                 
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  State
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="ex: Telangana"
+                  aria-label=".form-control-md example"
+                  
+                  onChange={(e) => setState(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  Postal Code 
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="ex: 500083"
+                  aria-label=".form-control-md example"
+                 
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  Date of Birth
+                </label>
+                <input
+                  className="w-65 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="date"
+                  aria-label=".form-control-md example"
+                 
+                  onChange={(e) => setDob(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  Mobile No <span className="mandate">*</span>
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="ex:+91"
+                  aria-label=".form-control-md example"
+                  required
+                  onChange={(e) => setSsn(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  Email <span className="mandate">*</span>
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="email"
+                  placeholder="ex: John@gmail.com"
+                  aria-label=".form-control-md example"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-semibold mt-3 ml-2 mb-1">
+                  Password <span className="mandate">*</span>
+                </label>
+                <input
+                  className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
+                  type="text"
+                  placeholder="password"
+                  aria-label=".form-control-md example"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="forms">
-              <input
-                style={{ paddingRight: "50px" }}
-                className="form-control form-control-md"
-                type="text"
-                placeholder="ex: John"
-                aria-label=".form-control-md example"
-                required
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                className="form-control form-control-md last-name"
-                type="text"
-                placeholder="ex: Doe"
-                aria-label=".form-control-md example"
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <p style={{ paddingTop: "10px", paddingBottom: "1px" }}>Address <span className="mandate">*</span></p>
-            <div className="address-form">
-              <input
-                className="form-control form-control-md"
-                type="text"
-                placeholder="Enter your specific address"
-                aria-label=".form-control-md example"
-                required
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
-            <div className="names-container">
-              <p className="names" style={{ marginTop: "30px" }}>
-                State
-              </p>
-              <p
-                className="names last-name"
-                style={{ marginTop: "30px", paddingLeft: "15vw" }}
-              >
-                Postal Code
-              </p>
-            </div>
-            <div className="forms">
-              <input
-                className="form-control form-control-md"
-                type="text"
-                placeholder="ex: Telangana"
-                aria-label=".form-control-md example"
-                onChange={(e) => setState(e.target.value)}
-              />
-              <input
-                className="form-control form-control-md last-name"
-                type="text"
-                placeholder="ex: 500083"
-                aria-label=".form-control-md example"
-                onChange={(e) => setPostalCode(e.target.value)}
-              />
-            </div>
-            <div className="names-container">
-              <p className="names" style={{ marginTop: "30px" }}>
-                Date of Birth
-              </p>
-              <p
-                className="names last-name"
-                style={{ marginTop: "30px", paddingLeft: "12vw" }}
-              >
-                Mobile Number
-              </p>
-            </div>
-            <div className="forms">
-              <input
-                className="form-control form-control-md"
-                type="text"
-                placeholder="ex: dd-mm-yyyy"
-                aria-label=".form-control-md example"
-                // required
-                onChange={(e) => setDob(e.target.value)}
-              />
-              <input
-                className="form-control form-control-md last-name"
-                type="text"
-                placeholder="ex: +91 "
-                aria-label=".form-control-md example"
-                onChange={(e) => setSsn(e.target.value)}
-              />
-            </div>
-            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>
-              Email ID <span className="mandate">*</span>
-            </p>
-            <div className="address-form">
-              <input
-                className="form-control form-control-md"
-                type="text"
-                placeholder="Enter your email"
-                aria-label=".form-control-md example"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <p style={{ paddingTop: "15px", paddingBottom: "10px" }}>
-              Password <span className="mandate">*</span>
-            </p>
-            <div className="address-form">
-              <input
-                className="form-control form-control-md"
-                type="password"
-                placeholder="Password"
-                aria-label=".form-control-md example"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+
+          
 
             <div className="submit text-center">
               <button
@@ -195,9 +201,6 @@ const Sign_UP = () => {
               </p>
             )}
           </form>
-
-
-          
         </div>
         <div className="image-container">
           <img src={image} className="image" alt="Auth" />
