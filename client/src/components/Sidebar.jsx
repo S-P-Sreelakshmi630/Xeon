@@ -7,7 +7,7 @@ const Sidebar = () => {
     <section className="sidebar">
       <nav className="flex flex-col gap-4">
         <Link
-          to="/home"
+          to="/"
           className="mb-12 flex cursor-pointer items-center
           gap-2"
         >
