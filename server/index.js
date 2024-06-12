@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const { createToken, verifyToken,authenticateToken } = require('./utils/jwt');
 
 // const port =3001;
 const UserModel = require("./models/User");
-
 const http = require("http");
 const app = express();
 app.use(express.json());
@@ -27,28 +27,66 @@ mongoose.connect(
 console.log("mongodb connected");
 
 //Registration
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
   const { name, email, password, accessToken } = req.body;
-  UserModel.create({ name, email, password, accessToken })
-    .then((user) => res.json("Success"))
-    .catch((err) => res.json(err));
+  try {
+    await UserModel.create({ name, email, password, accessToken });
+    res.json("Success");
+  } catch (err) {
+    res.json(err);
+  }
 });
 
+
+
 //Login
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  UserModel.findOne({ email: email }).then((user) => {
+  try {
+    const user = await UserModel.findOne({ email: email });
     if (user) {
       if (user.password === password) {
-        res.json({ Status: "Success" });
-      } else if (user.password !== password) {
-        return res.json("The password is incorrect");
+        const token = createToken(user);
+        res.json({ Status: "Success", token });
+      } else {
+        res.json("The password is incorrect");
       }
-    } else if (!user) {
+    } else {
       console.log("No record exists..");
-      return res.json("No record exists...");
+      res.json("No record exists...");
     }
-  });
+  } catch (err) {
+    res.status(500).json("An error occurred: " + err);
+  }
+});
+
+// Token verification endpoint
+// Verify Token
+app.get("/verifyToken", (req, res) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+      console.error('Authorization header missing');
+      return res.status(403).json({ valid: false, message: "No token provided" });
+    }
+
+    const token = authHeader.split(' ')[1]; 
+    if (!token) {
+      console.error('Token missing in authorization header');
+      return res.status(403).json({ valid: false, message: "No token provided" });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      console.error('Failed to verify token');
+      return res.status(403).json({ valid: false, message: "Failed to authenticate token" });
+    }
+
+    res.json({ valid: true, user: decoded });
+  } catch (error) {
+    console.error('Error in /verifyToken endpoint:', error);
+    res.status(500).json({ valid: false, message: "Internal server error" });
+  }
 });
 
 
@@ -115,8 +153,10 @@ app.post("/exchange_public_token", async function (req, res, next) {
   }
 });
 
-
-
+//Testing protected route
+app.get('/home', authenticateToken, (req, res) => {
+  res.json("This is a protected route");
+});
 // server port setup
 
 
