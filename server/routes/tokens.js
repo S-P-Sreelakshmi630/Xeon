@@ -37,7 +37,7 @@ route.post("/create_link_token", async function (req, res) {
       client_user_id: "user",
     },
     client_name: "Plaid Test App",
-    products: ["auth","transactions"],
+    products: ["transactions"],
     language: "en",
     redirect_uri: "http://localhost:3000/",
     country_codes: ["US","CA","FR"],
@@ -97,5 +97,5 @@ route.post("/transaction/sync", async (req,res)=>{
 })
 
 
-
+module.exports = {route , plaidclient};
 

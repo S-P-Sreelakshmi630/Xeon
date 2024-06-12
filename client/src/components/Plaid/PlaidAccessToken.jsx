@@ -10,10 +10,10 @@ const PlaidAccessToken = ({ public_token, sendtoParent }) => {
   };
   useEffect(() => {
     async function fetch() {
-      let accessToken = await axios.post("/exchange_public_token", {
+      let accessToken = await axios.post("/token/exchange_public_token", {
         public_token: public_token,
       });
-      // console.log("access token : ", accessToken.data.accessToken);
+      console.log("access token : ", accessToken.data.accessToken);
       setAccessToken(accessToken.data.accessToken);
     }
     fetch();

@@ -3,14 +3,21 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const { createToken, verifyToken,authenticateToken } = require('./utils/jwt');
 
-const tokens = require('./routes/tokens');
+//user
+
+const { createToken, verifyToken, authenticateToken } = require("./utils/jwt");
+const app = express();
+
+const { route, plaidclient } = require("./routes/tokens");
+const transactionsRouter = require("./routes/transactions");
+
+app.use(express.json());
 
 // const port =3001;
 const UserModel = require("./models/User");
+const UserTransaction = require("./models/transaction");
 const http = require("http");
-const app = express();
 app.use(express.json());
 app.use(
   cors({
@@ -22,11 +29,26 @@ app.use(
 );
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' 'unsafe-eval' https://*.plaid.com https://www.gstatic.com/recaptcha/ https://www.google.com/recaptcha/ https://cdn.getpinwheel.com 'sha256-/vBLPmGAtk+M1jf+ELFldGuWmC95W++i9SAdPi6fuGM=' 'sha256-Q2BuusfJf7qPwvz9U1VOF502KW7JtNFXxsDsxfPIu50=' blob:;"
+  );
+  next();
+});
+
+
 //DataBase connection
-mongoose.connect(
-  "mongodb+srv://saikrishnachintha06:sai123krishna@cluster0.i1yyaz8.mongodb.net/xeon?retryWrites=true&w=majority&appName=Cluster0"
-);
-console.log("mongodb connected");
+mongoose
+  .connect(
+    "mongodb+srv://saikrishnachintha06:sai123krishna@cluster0.i1yyaz8.mongodb.net/xeon?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB: ", error);
+  });
 
 //Registration
 app.post("/signup", async (req, res) => {
@@ -39,7 +61,38 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+// plaid Configuration
 
+app.use("/token", route);
+app.use("/transactions", transactionsRouter);
+
+//database user data
+app.get("/db", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const user = await UserModel.findOne({ "_id.$oid": id });
+    if (user) {
+      res.json(user);
+    }
+  } catch (er) {
+    res.send(er).status(500);
+  }
+});
+
+
+
+app.get("/transdb", async (req, res) => {
+  const { accessToken } = req.body;
+  try {
+    const list = await UserTransaction.findOne({ accessToken: accessToken });
+    if (list) {
+      console.log(list);
+      res.send(list);
+    }
+  } catch (er) {
+    res.send(er).status(500);
+  }
+});
 
 //Login
 app.post("/login", async (req, res) => {
@@ -49,7 +102,7 @@ app.post("/login", async (req, res) => {
     if (user) {
       if (user.password === password) {
         const token = createToken(user);
-        res.json({ Status: "Success", token });
+        res.json({ Status: "Success", token, details: user });
       } else {
         res.json("The password is incorrect");
       }
@@ -64,47 +117,68 @@ app.post("/login", async (req, res) => {
 
 // Token verification endpoint
 // Verify Token
-app.get("/verifyToken", (req, res) => {
+app.get("/verifyToken", async (req, res) => {
   try {
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers["authorization"];
     if (!authHeader) {
-      console.error('Authorization header missing');
-      return res.status(403).json({ valid: false, message: "No token provided" });
+      console.error("Authorization header missing");
+      return res
+        .status(403)
+        .json({ valid: false, message: "No token provided" });
     }
 
-    const token = authHeader.split(' ')[1]; 
+    const token = authHeader.split(" ")[1];
     if (!token) {
-      console.error('Token missing in authorization header');
-      return res.status(403).json({ valid: false, message: "No token provided" });
+      console.error("Token missing in authorization header");
+      return res
+        .status(403)
+        .json({ valid: false, message: "No token provided" });
     }
 
     const decoded = verifyToken(token);
     if (!decoded) {
-      console.error('Failed to verify token');
-      return res.status(403).json({ valid: false, message: "Failed to authenticate token" });
+      console.error("Failed to verify token");
+      return res
+        .status(403)
+        .json({ valid: false, message: "Failed to authenticate token" });
     }
 
-    res.json({ valid: true, user: decoded });
+    res.json({ valid: true, token, user: decoded });
   } catch (error) {
-    console.error('Error in /verifyToken endpoint:', error);
+    console.error("Error in /verifyToken endpoint:", error);
     res.status(500).json({ valid: false, message: "Internal server error" });
   }
 });
 
-
-// plaid Configuration
-
-app.use("/tokens",)
-
 //Testing protected route
-app.get('/home', authenticateToken, (req, res) => {
+app.get("/home", authenticateToken, (req, res) => {
   res.json("This is a protected route");
 });
 // server port setup
-
 
 const PORT = 3001;
 const server = http.createServer(app);
 server.listen(PORT, () => {
   console.log("Server is Running " + PORT);
 });
+
+
+// web sockeet 
+
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 5500 });
+
+wss.on('connection', (ws) => {
+  console.log('New client connected');
+  ws.send('Welcome to the WebSocket server!');
+
+  ws.on('message', (message) => {
+    console.log(`Received message: ${message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+
+console.log('WebSocket server is running on ws://127.0.0.1:5500/ws');

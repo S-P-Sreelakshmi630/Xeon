@@ -1,57 +1,69 @@
-const express = require('express')
+const express = require("express");
+const { route, plaidclient } = require("./tokens");
+const router = express.Router();
+const UserTransaction = require("../models/transaction");
 
-const route = express.Router();
+router.post("/sync", async (req, res) => {
+  let cursor = null;
+  let accessToken = req.body.accessToken;
+  // New transaction updates since "cursor"
+  if (!accessToken) {
+    return res.status(400).send("Access token is required");
+  }
+  let added = [];
+  let modified = [];
+  // Removed transaction ids
+  let removed = [];
+  let accounts = [];
+  let hasMore = true;
 
-const fetchNewSyncData = async function (
-    accessToken,
-    initialCursor,
-    retriesLeft = 3
-  ) {
-    const allData = {
-      added: [],
-      removed: [],
-      modified: [],
-      nextCursor: initialCursor,
-    };
-    if (retriesLeft <= 0) {
-      console.error("Too many retries!");
-      // We're just going to return no data and keep our original cursor. We can try again later.
-      return allData;
+  try {
+    // Iterate through each page of new transaction updates for item
+    while (hasMore) {
+      const request = {
+        access_token: accessToken,
+        cursor: cursor,
+      };
+      const response = await plaidclient.transactionsSync(request);
+      const data = response.data;
+      // Add this page of results
+      accounts = accounts.concat(data.accounts);
+      added = added.concat(data.added);
+      modified = modified.concat(data.modified);
+      removed = removed.concat(data.removed);
+
+      hasMore = data.has_more;
+      cursor = data.next_cursor;
     }
-    try {
-      let keepGoing = false;
-      do {
-        const results = await plaidClient.transactionsSync({
-          access_token: accessToken,
-          options: {
-            include_personal_finance_category: true,
-          },
-          cursor: allData.nextCursor,
-        });
-        const newData = results.data;
-        allData.added = allData.added.concat(newData.added);
-        allData.modified = allData.modified.concat(newData.modified);
-        allData.removed = allData.removed.concat(newData.removed);
-        allData.nextCursor = newData.next_cursor;
-        keepGoing = newData.has_more;
-        console.log(
-          `Added: ${newData.added.length} Modified: ${newData.modified.length} Removed: ${newData.removed.length} `
-        );
-  
-        // if (Math.random() < 0.5) {
-        //   throw new Error("SIMULATED PLAID SYNC ERROR");
-        // }
-      } while (keepGoing === true);
-      return allData;
-    } catch (error) {
-      // If you want to see if this is a sync mutation error, you can look at
-      // error?.response?.data?.error_code
-      console.log(
-        `Oh no! Error! ${JSON.stringify(
-          error
-        )} Let's try again from the beginning!`
-      );
-      await setTimeout(1000);
-      return fetchNewSyncData(accessToken, initialCursor, retriesLeft - 1);
+    /* 
+    console.log("Preparing to create UserTransaction with:", {
+      accessToken,
+      accounts,
+      added,
+      modified,
+      removed,
+    });
+ */
+    let check = await UserTransaction.findOne({ accessToken: accessToken });
+    if (check) {
+      res.send("Data is already avaliable");
+    } else {
+      const trans = await UserTransaction.create({
+        accessToken,
+        accounts,
+        added,
+        modified,
+        removed,
+      });
+
+      console.log("UserTransaction created successfully:", trans);
+      res.send("Success");
     }
-  };
+  } catch (err) {
+    console.error("Error creating UserTransaction:", err);
+    res.status(500).json(err);
+  }
+
+});
+
+module.exports = router;

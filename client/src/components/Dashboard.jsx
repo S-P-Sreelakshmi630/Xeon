@@ -3,62 +3,31 @@
 import TotalBalanceBox from "./TotalBalanceBox";
 import RecentTransactions from "./RecentTransactions";
 import HeaderBox from "./HeaderBox";
+import { useEffect } from "react";
+import axios from "axios";
 
 //Static Data
 
-const staticAccounts = [
-  { id: 1, name: "Account 1", balance: 1000 },
-  { id: 2, name: "Account 2", balance: 2000 },
-];
+const staticAccounts = [];
 
-const staticTransactions = [
-  {
-    accountId: 1,
-    amount: 100,
-    description: "Grocery",
-    status: "success",
-    category: "Subscription",
-  },
-  {
-    accountId: 12,
-    amount: 50,
-    description: "Transport",
-    status: "success",
-    category: "Deposit",
-  },
-  {
-    accountId: 22,
-    amount: -500,
-    description: "Salary",
-    status: "success",
-    category: "Transfer",
-  },
-  {
-    accountId: 17,
-    amount: 100,
-    description: "Grocery",
-    status: "success",
-    category: "Food",
-  },
-  {
-    accountId: 18,
-    amount: 50,
-    description: "Transport",
-    status: "success",
-    category: "Deposit",
-  },
-  {
-    accountId: 29,
-    amount: -500,
-    description: "Salary",
-    status: "success",
-    category: "Travel",
-  },
-];
-
+const staticTransactions = [];
+axios.defaults.baseURL = "http://localhost:3001";
 const staticAppwriteItemId = "item123";
 const staticPage = 1;
-const Dashboard = ({ type, title, subtext, user }) => {
+const Dashboard = ({ type, title, subtext, user, accessToken }) => {
+
+  useEffect(() => {
+    const fetchTransaction = async () => {
+      try {
+        const response = await axios.get(`/transdb?accessToken=${accessToken}`);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching transaction:", error);
+      }
+    };
+
+    fetchTransaction();
+  }, [accessToken]);
   return (
     //Removed this bcoz main width is effected.
     //flex flex-row gap-6 relative
@@ -82,10 +51,10 @@ const Dashboard = ({ type, title, subtext, user }) => {
             />
           </header>
         </header>
+        <button onClick={()=> fetch}>ReLoad</button>
         <RecentTransactions
           accounts={staticAccounts}
           transactions={staticTransactions}
-          appwriteItemId={staticAppwriteItemId}
           page={staticPage}
         />
       </div>

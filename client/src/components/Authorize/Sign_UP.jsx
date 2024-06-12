@@ -16,8 +16,7 @@ const Sign_UP = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [flag, setFlag] = useState(false);
-  const [accessToken, setAccessToken] = useState();
+  const [accessToken, setAccessToken] = useState(null);
   axios.defaults.baseURL = "http://localhost:3001";
 
   const handleAccessToken = (access) => {
@@ -30,16 +29,22 @@ const Sign_UP = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    axios
-      .post("/signup", { name, email, password, accessToken })
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrorMessage("An error occurred: " + err.message);
-      });
+
+    const syncRequest = axios.post("/transactions/sync", {
+      accessToken: accessToken,
+    });
+
+    const signupRequest = axios.post("/signup", { name, email, password, accessToken })
+    
+    Promise.all([syncRequest,signupRequest])
+    .then((res)=>{
+      const [syncRequest,signupRequest] = res ; 
+      console.log(syncRequest.data);
+      navigate("/");
+    }).catch((err)=>{
+      console.error("There was an error!!",err);
+      setErrorMessage("An error Occured : "+err.message);
+    })
   };
 
   return (

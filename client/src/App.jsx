@@ -11,10 +11,16 @@ import "./globals.css";
 function App() {
   const [loggedIn, setLoggedIn] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [accessToken,setAccessToken] = useState(null);
 
   const navigate = useNavigate();
 
+
+
+
+
   useEffect(() => {
+    async function fetch(){ 
     const token = localStorage.getItem('token');
     if (token) {
       axios.get('http://localhost:3001/verifyToken', { 
@@ -22,7 +28,8 @@ function App() {
       })
       .then(res => {
         if (res.data.valid) {
-          setLoggedIn({ firstName: res.data.user.email }); 
+          setLoggedIn({ firstName: res.data.user.email , id : res.data.user.id }); 
+          console.log(res.data);
         } else {
           navigate('/');
         }
@@ -37,6 +44,12 @@ function App() {
       navigate('/');
       setLoading(false); 
     }
+
+    let response = await axios.get("http://localhost:3001/db",{id:loggedIn?.id});
+    //console.log("user details :",response.data);
+    setAccessToken(response.data.accessToken);
+  }
+  fetch();
   }, [navigate]);
 
   if (loading) return null; 
@@ -48,6 +61,7 @@ function App() {
           type="greeting"
           title="Welcome"
           user={loggedIn?.firstName || "Guest"}
+          accessToken = {accessToken}
           subtext="Access and manage your account and transactions efficiently."
         />
     

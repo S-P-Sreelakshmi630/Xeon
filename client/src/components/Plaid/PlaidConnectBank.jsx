@@ -1,55 +1,53 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { usePlaidLink } from "react-plaid-link";
 import PlaidAccessToken from "./PlaidAccessToken";
-import Auth from "./Auth";
+
 axios.defaults.baseURL = "http://localhost:3001";
 
- 
-  
+const PlaidConnectBank = ({ sendtoDataParent }) => {
+  const [linkToken, setLinkToken] = useState("");
+  const [publicToken, setPublicToken] = useState(null);
 
-const PlaidConnectBank = ({sendtoDataParent}) => {
-    const [linkToken, setLinkToken] = useState("");
-    const [public_token, setPublic_token] = useState();
+  const handleChild = (accessToken) => {
+    sendtoDataParent(accessToken);
+  };
 
-
-    const handleChild = (accessToken) =>{
-      sendtoDataParent(accessToken)
- 
-    }
-
-
-    useEffect(() => {
-      async function fetch() {
-        const response = await axios.post("/create_link_token");
+  useEffect(() => {
+    const fetchLinkToken = async () => {
+      try {
+        const response = await axios.post("/token/create_link_token");
         setLinkToken(response.data.link_token);
-  
-        console.log(response.data.link_token);
+        console.log("link-token ", response.data.link_token);
         console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching link token:", error);
       }
-      fetch();
-    }, []);
-  
-    const { open, ready } = usePlaidLink({
-      token: linkToken,
-      onSuccess: (public_token, metadata) => {
-        // send public_token to server
-        setPublic_token(public_token);
-        console.log("Success", public_token, metadata);
-      },
-    });
+    };
+    fetchLinkToken();
+  }, []);
 
-    return public_token ? (<PlaidAccessToken public_token={public_token} sendtoParent={handleChild}/>) : (
-        <button
-          style={{marginRight:"25%", marginTop:"10px"}}
-          className="flex justify-center  btn btn-primary btn-md submit-btn"
-          onClick={() => open()}
-          disabled={!ready}
-        >
-          Connect a bank account
-        </button>
-      );
-}
+  const { open, ready } = usePlaidLink({
+    token: linkToken,
+    onSuccess: (public_token, metadata) => {
+      // send public_token to server
+      setPublicToken(public_token);
+      console.log("Success public token", public_token, metadata);
+    },
+  });
+
+  return publicToken ? (
+    <PlaidAccessToken public_token={publicToken} sendtoParent={handleChild} />
+  ) : (
+    <button
+      style={{ marginRight: "25%", marginTop: "10px" }}
+      className="flex justify-center btn btn-primary btn-md submit-btn"
+      onClick={() => open()}
+      disabled={!ready}
+    >
+      Connect a bank account
+    </button>
+  );
+};
 
 export default PlaidConnectBank;

@@ -16,7 +16,7 @@ const routerVariable = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <Sign_UP/>,
+    element: <Sign_UP />,
   },
   {
     path: "/Home",
@@ -40,8 +40,30 @@ const routerVariable = createBrowserRouter([
   },
 ]);
 
+const socket = new WebSocket("ws://127.0.0.1:5500/ws");
+
+socket.onopen = () => {
+  console.log("Connected to the WebSocket server");
+  socket.send("Hello Server!");
+};
+
+socket.onmessage = (event) => {
+  console.log(`Message from server: ${event.data}`);
+};
+
+socket.onerror = (error) => {
+  console.error("WebSocket error:", error);
+};
+
+socket.onclose = () => {
+  console.log("WebSocket connection closed");
+};
+
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={routerVariable} />
   </React.StrictMode>
 );
+
