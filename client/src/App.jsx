@@ -8,19 +8,15 @@ import "./globals.css";
 function App() {
   const loggedIn = { firstName: "John" };
   return (
-    <section className="flex h-screen w-full font-inter gap-">
+    <section className="flex h-screen w-full font-inter gap-2">
         <Sidebar />
-        <div className="flex size-full flex-col">
         <Dashboard 
           type="greeting"
           title="Welcome"
           user={loggedIn?.firstName || "Guest"}
           subtext="Access and manage your account and transactions efficiently."
         />
-        
-        </div>
-        
-      
+    
     </section>
   );
 }

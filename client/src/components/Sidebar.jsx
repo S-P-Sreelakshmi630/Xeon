@@ -32,7 +32,7 @@ const Sidebar = () => {
                 isActive ? "bg-bank-gradient sidebar-link" : "sidebar-link"
               }
             >
-              <div className="relative size-4">
+              <div className="relative size-5">
                 <img
                   src={links.imgURL}
                   alt={links.label}
@@ -43,8 +43,9 @@ const Sidebar = () => {
                 className={
                   isActive
                     ? "sidebar-label text-white"
-                    : "sidebar-label  black font-inter"
+                    : "sidebar-label black font-inter"
                 }
+              
               >
                 {links.label}
               </p>
