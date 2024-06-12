@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Sign_IN = () => {
+  
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState(""); //state for error message
@@ -24,8 +25,11 @@ const Sign_IN = () => {
 
       .then((res) => {
         console.log("login: " + res.data);
-        if (res.data.Status === "Success") {
-          navigate("/Home");
+// Extracting token from res
+        const token = res.data.token; 
+        if (token) {
+          localStorage.setItem('token', token); // Store token in local storage
+          navigate("/home"); // Redirect to home page
         } else {
           setErrorMessage(" " + res.data);
         }
