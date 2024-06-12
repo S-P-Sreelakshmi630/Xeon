@@ -4,6 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
+const tokens = require('./routes/tokens');
+
 // const port =3001;
 const UserModel = require("./models/User");
 
@@ -54,66 +56,7 @@ app.post("/login", (req, res) => {
 
 // plaid Configuration
 
-const { Configuration, PlaidApi, PlaidEnvironments } = require("plaid");
-
-const configuration = new Configuration({
-  basePath: PlaidEnvironments.sandbox,
-  baseOptions: {
-    headers: {
-      "PLAID-CLIENT-ID": process.env.PLAID_CLIENT_ID,
-      "PLAID-SECRET": process.env.PLAID_SECRET,
-    },
-  },
-});
-
-const plaidclient = new PlaidApi(configuration);
-
-app.post("/create_link_token", async function (req, res) {
-  // Get the client_user_id by searching for the current user
-  /* const clientUser = null;
-  const { email} = req.body;
-  UserModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      clientUser = user.email;
-    }
-  }); */
-
-  const request = {
-    user: {
-      // This should correspond to a unique id for the current user.
-      client_user_id: "user",
-    },
-    client_name: "Plaid Test App",
-    products: ["auth"],
-    language: "en",
-    redirect_uri: "http://localhost:3000/",
-    country_codes: ["US"],
-  };
-  try {
-    const createTokenResponse = await plaidclient.linkTokenCreate(request);
-    res.json(createTokenResponse.data);
-  } catch (error) {
-    res.status(500).send("failure");
-    // handle error
-  }
-});
-
-app.post("/exchange_public_token", async function (req, res, next) {
-  const publicToken = req.body.public_token;
-  try {
-    const response = await plaidclient.itemPublicTokenExchange({
-      public_token: publicToken,
-    });
-
-    // These values should be saved to a persistent database and
-    // associated with the currently signed-in user
-    const accessToken = response.data.access_token;
-    res.json({ accessToken });
-  } catch (error) {
-    // handle error
-    res.status(500).send("Failed to access token: " + error.message);
-  }
-});
+app.use("/tokens",)
 
 
 

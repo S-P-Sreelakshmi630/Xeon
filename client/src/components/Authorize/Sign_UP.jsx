@@ -2,7 +2,7 @@
 import "./Sign_UP.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import image from "../../icons/auth.jpg";
 import PlaidConnectBank from "../Plaid/PlaidConnectBank";
 const Sign_UP = () => {
@@ -18,6 +18,7 @@ const Sign_UP = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [flag, setFlag] = useState(false);
   const [accessToken, setAccessToken] = useState();
+  axios.defaults.baseURL = "http://localhost:3001";
 
   const handleAccessToken = (access) => {
     setAccessToken(access);
@@ -29,6 +30,7 @@ const Sign_UP = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
     axios
       .post("/signup", { name, email, password, accessToken })
       .then((res) => {
@@ -83,42 +85,35 @@ const Sign_UP = () => {
               </div>
 
               <div className="flex flex-col">
-                <label className="font-semibold mt-3 ml-2 mb-1">
-                  Address 
-                </label>
+                <label className="font-semibold mt-3 ml-2 mb-1">Address</label>
                 <input
                   className="w-96 border border-black-2 p-1.5 rounded-lg mr-12"
                   type="text"
                   placeholder="ex: John"
-                 
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
 
               <div className="flex flex-col">
-                <label className="font-semibold mt-3 ml-2 mb-1">
-                  State
-                </label>
+                <label className="font-semibold mt-3 ml-2 mb-1">State</label>
                 <input
                   className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
                   type="text"
                   placeholder="ex: Telangana"
                   aria-label=".form-control-md example"
-                  
                   onChange={(e) => setState(e.target.value)}
                 />
               </div>
 
               <div className="flex flex-col">
                 <label className="font-semibold mt-3 ml-2 mb-1">
-                  Postal Code 
+                  Postal Code
                 </label>
                 <input
                   className="w-55 border border-black-2 p-1.5 rounded-lg mr-12"
                   type="text"
                   placeholder="ex: 500083"
                   aria-label=".form-control-md example"
-                 
                   onChange={(e) => setPostalCode(e.target.value)}
                 />
               </div>
@@ -131,7 +126,6 @@ const Sign_UP = () => {
                   className="w-65 border border-black-2 p-1.5 rounded-lg mr-12"
                   type="date"
                   aria-label=".form-control-md example"
-                 
                   onChange={(e) => setDob(e.target.value)}
                 />
               </div>
@@ -178,8 +172,6 @@ const Sign_UP = () => {
                 />
               </div>
             </div>
-
-          
 
             <div className="submit text-center">
               <button

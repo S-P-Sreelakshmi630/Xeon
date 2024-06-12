@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { usePlaidLink } from "react-plaid-link";
 import PlaidAccessToken from "./PlaidAccessToken";
+import Auth from "./Auth";
 axios.defaults.baseURL = "http://localhost:3001";
 
  
@@ -11,9 +12,11 @@ axios.defaults.baseURL = "http://localhost:3001";
 const PlaidConnectBank = ({sendtoDataParent}) => {
     const [linkToken, setLinkToken] = useState("");
     const [public_token, setPublic_token] = useState();
-    
+
+
     const handleChild = (accessToken) =>{
       sendtoDataParent(accessToken)
+ 
     }
 
 
@@ -36,7 +39,6 @@ const PlaidConnectBank = ({sendtoDataParent}) => {
         console.log("Success", public_token, metadata);
       },
     });
-  
 
     return public_token ? (<PlaidAccessToken public_token={public_token} sendtoParent={handleChild}/>) : (
         <button
