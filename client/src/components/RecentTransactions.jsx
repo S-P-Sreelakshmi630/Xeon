@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
+import axios from "axios";
 
 //static data
 
@@ -39,7 +41,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 //   );
 // };
-const RecentTransactions = ({transactions=[]}) => (
+const RecentTransactions = ({ transactions = []}) => {
+
+  (
   <div>
     <h2 className="recent-transactions-heading recent-transactions-label">
       Recent Transactions
@@ -106,7 +110,7 @@ const RecentTransactions = ({transactions=[]}) => (
       </table>
     </div>
   </div>
-);
+)};
 
 // Function to determine the CSS class for category badges and border color
 const getCategoryBadgeClass = (category) => {

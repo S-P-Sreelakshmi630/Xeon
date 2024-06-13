@@ -3,24 +3,24 @@
 import TotalBalanceBox from "./TotalBalanceBox";
 import RecentTransactions from "./RecentTransactions";
 import HeaderBox from "./HeaderBox";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import RightSidebar from "./RightSidebar";
 
 //Static Data
 
-const staticAccounts = [];
-
-const staticTransactions = [];
-axios.defaults.baseURL = "http://localhost:3001";
-const staticAppwriteItemId = "item123";
-const staticPage = 1;
 const Dashboard = ({ type, title, subtext, user, accessToken }) => {
-
+  const [data , setData] = useState({});
   useEffect(() => {
     const fetchTransaction = async () => {
       try {
-        const response = await axios.get(`/transdb?accessToken=${accessToken}`);
-        console.log(response.data);
+        const res = await axios.get("http://localhost:3001/transdb", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log("success", res.data);
+        setData(res.data);
       } catch (error) {
         console.error("Error fetching transaction:", error);
       }
@@ -48,16 +48,13 @@ const Dashboard = ({ type, title, subtext, user, accessToken }) => {
               accounts={[]}
               totalBanks={1}
               totalCurrentBalance={1250.35}
+              user = {user}
             />
           </header>
         </header>
-        <button onClick={()=> fetch}>ReLoad</button>
-        <RecentTransactions
-          accounts={staticAccounts}
-          transactions={staticTransactions}
-          page={staticPage}
-        />
+        <RecentTransactions transactions={[]} />
       </div>
+      <RightSidebar/>
     </section>
   );
 };

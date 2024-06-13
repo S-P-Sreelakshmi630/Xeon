@@ -80,17 +80,22 @@ app.get("/db", async (req, res) => {
 });
 
 
-
 app.get("/transdb", async (req, res) => {
-  const { accessToken } = req.body;
+  const accessToken = req.headers.authorization?.split(' ')[1];
+  if (!accessToken) {
+    return res.status(400).json({ error: "Access token is missing" });
+  }
+
   try {
     const list = await UserTransaction.findOne({ accessToken: accessToken });
     if (list) {
-      console.log(list);
-      res.send(list);
+      return res.status(200).json(list);
+    } else {
+      return res.status(404).json({ error: "Transactions not found" });
     }
-  } catch (er) {
-    res.send(er).status(500);
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 
