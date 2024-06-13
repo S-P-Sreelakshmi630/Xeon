@@ -39,7 +39,9 @@ function App() {
       })
       .finally(() => {
         setLoading(false); 
-      });
+      }
+    
+    );
     } else {
       navigate('/');
       setLoading(false); 
@@ -48,8 +50,8 @@ function App() {
     let response = await axios.get("http://localhost:3001/db",{id:loggedIn?.id});
     //console.log("user details :",response.data);
     setAccessToken(response.data.accessToken);
+    setUser(response.data.name);
     console.log("User : ",response.data);
-    setUser({name:response.data.name,email:response.data.email,accessToken:response.data.accessToken});
   }
   fetch();
   }, [navigate]);
