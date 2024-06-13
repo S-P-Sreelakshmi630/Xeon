@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { sidebarLinks } from "/constants/index";
+import Footer from "./Footer";
 
-const Sidebar = () => {
+const Sidebar = ({user}) => {
   const pathname = window.location.pathname;
   return (
     <section className="sidebar">
@@ -12,11 +13,11 @@ const Sidebar = () => {
           gap-2"
         >
           <img
-            src="/icons/logo.svg"
+            src="/public/Noe.svg"
             width={34}
             height={34}
             alt="logo"
-            className="size-[24px] 
+            className="size-[32px] 
               max-xl:size-14 "
           />
           <h1 className="sidebar-logo">Xeon</h1>
@@ -54,7 +55,7 @@ const Sidebar = () => {
         })}
         USER
       </nav>
-      FOOTER
+      <Footer user={user} />
     </section>
   );
 };

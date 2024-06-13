@@ -41,9 +41,7 @@ import axios from "axios";
 
 //   );
 // };
-const RecentTransactions = ({ transactions = []}) => {
-
-  (
+const RecentTransactions = ({ transactions }) => {
   <div>
     <h2 className="recent-transactions-heading recent-transactions-label">
       Recent Transactions
@@ -63,8 +61,8 @@ const RecentTransactions = ({ transactions = []}) => {
         </thead>
         <tbody>
           {transactions.map((transaction) => (
-            <tr key={transaction.accountId}>
-              <td>{transaction.accountId}</td>
+            <tr key={transaction.account_id}>
+              <td>{transaction.name}</td>
               <td
                 className={
                   transaction.amount >= 0 ? "text-success" : "text-danger"
@@ -72,7 +70,7 @@ const RecentTransactions = ({ transactions = []}) => {
               >
                 ${Math.abs(transaction.amount).toFixed(2)}
               </td>
-              <td>{transaction.description}</td>
+              <td>{transaction.authorized_date}</td>
               <td
                 className={
                   transaction.status == "success"
@@ -109,8 +107,8 @@ const RecentTransactions = ({ transactions = []}) => {
         </tbody>
       </table>
     </div>
-  </div>
-)};
+  </div>;
+};
 
 // Function to determine the CSS class for category badges and border color
 const getCategoryBadgeClass = (category) => {

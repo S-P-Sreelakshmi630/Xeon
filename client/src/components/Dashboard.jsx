@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import RightSidebar from "./RightSidebar";
 
-//Static Data
 
 const Dashboard = ({ type, title, subtext, user, accessToken }) => {
+  const [accounts,setAccounts] = useState([]);
+  const [transactionAdded,setTransactionAdded] = useState([]);
   const [data , setData] = useState({});
   useEffect(() => {
     const fetchTransaction = async () => {
@@ -21,6 +22,8 @@ const Dashboard = ({ type, title, subtext, user, accessToken }) => {
         });
         console.log("success", res.data);
         setData(res.data);
+        setAccounts(res.data.accounts);
+        setTransactionAdded(res.data.added);
       } catch (error) {
         console.error("Error fetching transaction:", error);
       }
@@ -52,7 +55,7 @@ const Dashboard = ({ type, title, subtext, user, accessToken }) => {
             />
           </header>
         </header>
-        <RecentTransactions transactions={[]} />
+        <RecentTransactions transactions={transactionAdded} />
       </div>
       <RightSidebar/>
     </section>
