@@ -1,7 +1,7 @@
 import React from "react";
 
 const BankCard = ({ account, userName, showBalance = true }) => {
-  console.log(account);
+  //console.log(account);
   return (
     <div className="bank-card">
       <div className="bank-card_content">

@@ -12,7 +12,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(null);
   const [loading, setLoading] = useState(true);
   const [accessToken,setAccessToken] = useState(null);
-
+  const [user ,setUser] = useState(null);
   const navigate = useNavigate();
 
 
@@ -48,6 +48,8 @@ function App() {
     let response = await axios.get("http://localhost:3001/db",{id:loggedIn?.id});
     //console.log("user details :",response.data);
     setAccessToken(response.data.accessToken);
+    console.log("User : ",response.data);
+    setUser({name:response.data.name,email:response.data.email,accessToken:response.data.accessToken});
   }
   fetch();
   }, [navigate]);
@@ -60,7 +62,7 @@ function App() {
         <Dashboard 
           type="greeting"
           title="Welcome"
-          user={loggedIn?.firstName || "Guest"}
+          user={user}
           accessToken = {accessToken}
           subtext="Access and manage your account and transactions efficiently."
         />
